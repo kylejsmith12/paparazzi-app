@@ -21,6 +21,12 @@ function CelebrityEditor({ selectedCelebrity }) {
   const [dob, setDob] = useState("");
   const [imageSrc, setImageSrc] = useState(null);
 
+  // Define arrays for dynamic menu items
+  const categories = ["Actor", "Singer", "Athlete"];
+  const countries = ["USA", "UK", "Canada"];
+  const genders = ["Male", "Female", "Other"];
+  const statuses = ["Single", "Married", "Complicated"];
+
   useEffect(() => {
     setCategory("");
     setCountry("");
@@ -107,104 +113,114 @@ function CelebrityEditor({ selectedCelebrity }) {
           />
         </Box>
       )}
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={4}>
-          <FormControl fullWidth>
-            <InputLabel id="category-label">Category</InputLabel>
-            <Select
-              labelId="category-label"
-              id="category"
-              value={category}
-              onChange={handleCategoryChange}
-              label="Category"
+      {selectedCelebrity && (
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={4}>
+            <FormControl fullWidth>
+              <InputLabel id="category-label">Category</InputLabel>
+              <Select
+                labelId="category-label"
+                id="category"
+                value={category}
+                onChange={handleCategoryChange}
+                label="Category"
+              >
+                {categories.map((cat) => (
+                  <MenuItem key={cat} value={cat}>
+                    {cat}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <FormControl fullWidth>
+              <InputLabel id="country-label">Country</InputLabel>
+              <Select
+                labelId="country-label"
+                id="country"
+                value={country}
+                onChange={handleCountryChange}
+                label="Country"
+              >
+                {countries.map((c) => (
+                  <MenuItem key={c} value={c}>
+                    {c}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <FormControl fullWidth>
+              <InputLabel id="gender-label">Gender</InputLabel>
+              <Select
+                labelId="gender-label"
+                id="gender"
+                value={gender}
+                onChange={handleGenderChange}
+                label="Gender"
+              >
+                {genders.map((gen) => (
+                  <MenuItem key={gen} value={gen}>
+                    {gen}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="name"
+              label="Name"
+              fullWidth
+              value={name}
+              onChange={handleNameChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <FormControl fullWidth>
+              <InputLabel id="status-label">Status</InputLabel>
+              <Select
+                labelId="status-label"
+                id="status"
+                value={status}
+                onChange={handleStatusChange}
+                label="Status"
+              >
+                {statuses.map((stat) => (
+                  <MenuItem key={stat} value={stat}>
+                    {stat}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <TextField
+              id="dob"
+              label="Date of Birth"
+              type="date"
+              value={dob}
+              onChange={handleDobChange}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={handleSubmit}
             >
-              <MenuItem value="Actor">Actor</MenuItem>
-              <MenuItem value="Singer">Singer</MenuItem>
-              <MenuItem value="Athlete">Athlete</MenuItem>
-            </Select>
-          </FormControl>
+              Submit
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={4}>
-          <FormControl fullWidth>
-            <InputLabel id="country-label">Country</InputLabel>
-            <Select
-              labelId="country-label"
-              id="country"
-              value={country}
-              onChange={handleCountryChange}
-              label="Country"
-            >
-              <MenuItem value="USA">USA</MenuItem>
-              <MenuItem value="UK">UK</MenuItem>
-              <MenuItem value="Canada">Canada</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <FormControl fullWidth>
-            <InputLabel id="gender-label">Gender</InputLabel>
-            <Select
-              labelId="gender-label"
-              id="gender"
-              value={gender}
-              onChange={handleGenderChange}
-              label="Gender"
-            >
-              <MenuItem value="Male">Male</MenuItem>
-              <MenuItem value="Female">Female</MenuItem>
-              <MenuItem value="Other">Other</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="name"
-            label="Name"
-            fullWidth
-            value={name}
-            onChange={handleNameChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <FormControl fullWidth>
-            <InputLabel id="status-label">Status</InputLabel>
-            <Select
-              labelId="status-label"
-              id="status"
-              value={status}
-              onChange={handleStatusChange}
-              label="Status"
-            >
-              <MenuItem value="Single">Single</MenuItem>
-              <MenuItem value="Married">Married</MenuItem>
-              <MenuItem value="Complicated">Complicated</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <TextField
-            id="dob"
-            label="Date of Birth"
-            type="date"
-            value={dob}
-            onChange={handleDobChange}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button>
-        </Grid>
-      </Grid>
+      )}
     </Box>
   );
 }
